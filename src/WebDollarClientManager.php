@@ -16,11 +16,6 @@ class WebDollarClientManager implements WebDollarClientManagerInterface
      */
     private $_aClients = [];
 
-    public function __construct(iterable $clients)
-    {
-        $this->_aClients = $clients;
-    }
-
     /**
      * @return WebDollarClient
      */
@@ -29,5 +24,20 @@ class WebDollarClientManager implements WebDollarClientManagerInterface
         $nClientId = array_rand($this->_aClients);
 
         return $this->_aClients[$nClientId];
+    }
+
+    public function getClientByAlias($alias)
+    {
+        return $this->_aClients[$alias] ?? NULL;
+    }
+
+    public function getClients(): array
+    {
+        return $this->_aClients;
+    }
+
+    public function addClient(WebDollarClient $oClient, $alias)
+    {
+        $this->_aClients[$alias] = $oClient;
     }
 }

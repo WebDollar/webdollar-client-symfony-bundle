@@ -44,6 +44,7 @@ class WebDollarClientExtension extends Extension
     {
         $first   = null;
         $clients = [];
+        $oClientManagerDefinition = $container->getDefinition('webdollar.client_manager');
 
         foreach ($config['clients'] as $name => $arguments) {
             if (null === $first) {
@@ -53,6 +54,11 @@ class WebDollarClientExtension extends Extension
 
             $this->configureClient($container, $name, $arguments);
             $clients[] = $name;
+
+            $oClientManagerDefinition->addMethodCall('addClient', [
+                new Reference(sprintf('webdollar.client.%s', $name)),
+                $name
+            ]);
         }
 
         // If we have clients configured
@@ -63,11 +69,6 @@ class WebDollarClientExtension extends Extension
                 $container->setAlias('webdollar.client.default', 'webdollar.client.'.$first);
             }
         }
-
-        $container->getDefinition('webdollar.client_manager')
-            ->replaceArgument(0, array_map(function($sClientName) {
-                return new Reference(sprintf('webdollar.client.%s', $sClientName));
-            }, $clients));
     }
 
     /**
