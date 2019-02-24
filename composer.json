@@ -1,0 +1,23 @@
+{
+    "name": "webdollar/webdollar-client-symfony-bundle",
+    "description": "Symfony Bundle for JSON-RPC 2.0 Webdollar Client PHP",
+    "license": "ISC",
+    "keywords": ["WebDollar", "Client", "Symfony", "Bundle", "Blockchain", "http", "json", "json-rpc", "jsonrpc", "rpc"],
+    "authors": [
+        {
+            "name": "Razvan Ceana",
+            "email": "razvan@ceana.ro"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "symfony/framework-bundle": "^4.2",
+        "webdollar/webdollar-client-php": "^1.0"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "WebDollar\\WebDollarClientBundle\\": "src/"
+        }
+    }
+}
